@@ -4,11 +4,14 @@ const { Schema } = mongoose;
 const projectschema = new Schema(
     {
         name: { type: String, required: [true, 'Name is required'] },
-        type: { type: String, required: [true, 'Type is required'] },
         img:
         {
             data: Buffer,
             contentType: String
+        },
+        type_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Type", 
         }
     },
     { timestamps: true }
