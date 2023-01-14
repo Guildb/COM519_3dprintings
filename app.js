@@ -7,6 +7,7 @@ const chalk = require("chalk");
 const bodyParser = require("body-parser");
 const expressSession = require("express-session");
 const User = require("./models/Users");
+const type = require("./models/Type");
 
 /**
  * Controllers (route handlers).
@@ -46,7 +47,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(expressSession({ secret: 'foo barr', cookie: { expires: new Date(253402300000000) } }))
 
-/**
 app.use("*", async (req, res, next) => {
   global.user = false;
   if (req.session.userID && !global.user) {
@@ -63,10 +63,32 @@ const authMiddleware = async (req, res, next) => {
     }
     next()
   }
-*/
+
 app.get("/", (req, res)=>{
     res.render("index");
 });
+
+app.get("/login", (req, res)=>{
+  res.render("login.ejs");
+});
+
+app.get("/register", (req, res)=>{
+  res.render("register.ejs");
+});
+
+app.get("/forgot", (req, res)=>{
+  res.render("password.ejs");
+});
+
+app.get("/charts", (req, res)=>{
+  res.render("charts.ejs");
+});
+
+app.get("/tables", (req, res)=>{
+  res.render("tables.ejs");
+});
+
+
 
 
 app.get("/logout", async (req, res) => {
@@ -74,3 +96,12 @@ app.get("/logout", async (req, res) => {
     global.user = false;
     res.redirect('/');
   })
+
+
+
+app.listen(PORT, () => {
+  console.log(
+    `Example app listening at http://localhost:${PORT}`,
+    chalk.green("✓")
+  );
+});
