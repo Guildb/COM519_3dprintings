@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const provinceSchema = new Schema(
+const orderSchema = new Schema(
     {
         buyer_name: { type: String, required: [true, 'Name is required'] },
         Status: { type: String,},
@@ -17,4 +17,4 @@ const provinceSchema = new Schema(
     { timestamps: true }
 );
 
-module.exports = mongoose.model("Province", provinceSchema);
+module.exports = mongoose.model("Order", orderSchema);

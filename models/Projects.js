@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const projectschema = new Schema(
+const projectSchema = new Schema(
     {
         name: { type: String, required: [true, 'Name is required'] },
         img:
@@ -17,6 +17,4 @@ const projectschema = new Schema(
     { timestamps: true }
 );
 
-
-
-module.exports = mongoose.model("Projects", userSchema);
+module.exports = mongoose.model("Projects", projectSchema);

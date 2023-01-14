@@ -1,12 +1,12 @@
+
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 const bodyParser = require("body-parser");
-const countriesModel = require("./models/Country");
 const expressSession = require("express-session");
-const User = require("./models/User");
+const User = require("./models/Users");
 
 /**
  * Controllers (route handlers).
@@ -46,7 +46,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(expressSession({ secret: 'foo barr', cookie: { expires: new Date(253402300000000) } }))
 
-
+/**
 app.use("*", async (req, res, next) => {
   global.user = false;
   if (req.session.userID && !global.user) {
@@ -56,19 +56,17 @@ app.use("*", async (req, res, next) => {
   next();
 })
 
-app.get("/", async (req, res) => {
-    if(req.session)
-    {
-        res.redirect('/')
+const authMiddleware = async (req, res, next) => {
+    const user = await User.findById(req.session.userID);
+    if (!user) {
+      return res.redirect('/');
     }
-    else{
-        global.user = req.session;
-    }
-
-    req.session.destroy();
-    global.user = false;
-    res.redirect('/');
-  })
+    next()
+  }
+*/
+app.get("/", (req, res)=>{
+    res.render("index");
+});
 
 
 app.get("/logout", async (req, res) => {
