@@ -6,8 +6,7 @@ const mongoose = require("mongoose");
 const chalk = require("chalk");
 const bodyParser = require("body-parser");
 const expressSession = require("express-session");
-const User = require("./models/Users");
-const type = require("./models/Type");
+const User = require("./models/User");
 
 /**
  * Controllers (route handlers).
@@ -65,27 +64,39 @@ const authMiddleware = async (req, res, next) => {
   }
 
 app.get("/", (req, res)=>{
-    res.render("index");
+    res.render("index", { errors: {}, message:{} });
 });
 
 app.get("/login", (req, res)=>{
-  res.render("login.ejs");
+  res.render("login.ejs", { errors: {}, message:{}});
 });
 
 app.get("/register", (req, res)=>{
-  res.render("register.ejs");
+  res.render("register.ejs", { errors: {}, message:{} });
 });
 
 app.get("/forgot", (req, res)=>{
-  res.render("password.ejs");
+  res.render("password.ejs", { errors: {}, message:{} });
 });
 
 app.get("/charts", (req, res)=>{
-  res.render("charts.ejs");
+  res.render("charts.ejs", { errors: {}, message:{} });
 });
 
 app.get("/tables", (req, res)=>{
-  res.render("tables.ejs");
+  res.render("tables.ejs", { errors: {}, message:{} });
+});
+
+app.get("/401", (req, res)=>{
+  res.render("401.ejs", { message:{} });
+});
+
+app.get("/404", (req, res)=>{
+  res.render("404.ejs", { message:{} });
+});
+
+app.get("/500", (req, res)=>{
+  res.render("500.ejs", { message:{} });
 });
 
 
