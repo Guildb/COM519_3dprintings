@@ -58,12 +58,12 @@ app.use("*", async (req, res, next) => {
 const authMiddleware = async (req, res, next) => {
     const user = await User.findById(req.session.userID);
     if (!user) {
-      return res.redirect('/');
+      return res.redirect('401');
     }
     next()
   }
 
-app.get("/", (req, res)=>{
+app.get("/",(req, res)=>{
     res.render("index", { errors: {}, message:{} });
 });
 
