@@ -12,6 +12,8 @@ const User = require("./models/User");
  * Controllers (route handlers).
  */
 
+const userController = require("./controllers/user");
+
 
 
 const app = express();
@@ -63,43 +65,57 @@ const authMiddleware = async (req, res, next) => {
     next()
   }
 
+
 app.get("/",(req, res)=>{
     res.render("index", { errors: {}, message:{} });
 });
 
+
 app.get("/login", (req, res)=>{
   res.render("login.ejs", { errors: {}, message:{}});
 });
+app.post("/login", userController.login);
+
 
 app.get("/register", (req, res)=>{
   res.render("register.ejs", { errors: {}, message:{} });
 });
+app.post("/register", userController.create);
 
-app.get("/forgot", (req, res)=>{
+
+app.get("/password", (req, res)=>{
   res.render("password.ejs", { errors: {}, message:{} });
 });
+app.post("/password", userController.password);
+
 
 app.get("/charts", (req, res)=>{
   res.render("charts.ejs", { errors: {}, message:{} });
 });
 
+
 app.get("/tables", (req, res)=>{
   res.render("tables.ejs", { errors: {}, message:{} });
 });
 
+
 app.get("/401", (req, res)=>{
-  res.render("401.ejs", { message:{} });
+  res.render("401.ejs", { errors:{} });
 });
+
 
 app.get("/404", (req, res)=>{
-  res.render("404.ejs", { message:{} });
+  res.render("404.ejs", { errors:{} });
 });
+
 
 app.get("/500", (req, res)=>{
-  res.render("500.ejs", { message:{} });
+  res.render("500.ejs", { errors:{} });
 });
 
-
+app.get("/errors", (req, res)=>{
+  res.render("errors.ejs", { errors:{} });
+});
 
 
 app.get("/logout", async (req, res) => {

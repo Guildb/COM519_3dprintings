@@ -3,10 +3,13 @@ const bcrypt = require('bcrypt');
 
 exports.login = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
-        if(!user){
-            user = await User.findOne({ username: req.body.email });
-        }
+        const user = await User.findOne({
+            $or:[
+                { email: req.body.email },
+                { username: req.body.email }
+            ]
+            });
+        console.log(user)
         if (!user) {
             res.render('login', { errors: { email: { message: 'email not found' } } })
             return;
@@ -24,6 +27,7 @@ exports.login = async (req, res) => {
 
 
     } catch (e) {
+        console.log(e)
         return res.status(400).send({
             message: JSON.parse(e),
         });
@@ -35,7 +39,25 @@ exports.create = async (req, res) => {
         const password = req.body.password
         const passwordconfirm = req.body.passwordconfirm
         if(password != passwordconfirm){
-            res.render('register', { errors: "Passwords do not match"})
+            res.render('register', { errors: { password: { message: 'passwords do not match' } }})
+            return;
+        }
+
+        const user = await User.findOne({
+            $or:[
+                { email: req.body.email },
+                { username: req.body.username }
+            ]
+            });
+
+        if (user) {
+            if(user.email == req.body.email){
+                res.render('register', { errors: { email: { message: 'email already in use' } } })
+                return;
+            } else if (user.username == req.body.username){
+                res.render('register', { errors: { username: { message: 'username already in use' } } })
+                return;
+            }
         }
         else{
             const user = new User({ 
@@ -44,13 +66,47 @@ exports.create = async (req, res) => {
                 username: req.body.username, 
                 name: req.body.name});
             await user.save();
-            res.render('login', {message: "User created successfully please longin"})
+            res.render('/')
         }
         
     } catch (e) {
         if (e.errors) {
             console.log(e.errors);
-            res.render('create-user', { errors: e.errors })
+            res.render('error', { errors: e.errors })
+            return;
+        }
+        return res.status(400).send({
+            message: JSON.parse(e),
+        });
+    }
+}
+
+exports.password = async (req, res) => {
+    try {
+        const password = req.body.password
+        const passwordconfirm = req.body.passwordconfirm
+        if(password != passwordconfirm){
+            res.render('register', { errors: { password: { message: 'passwords do not match' } }})
+            return;
+        }
+        const hashpass = await bcrypt.hash(password, 10);
+
+        const user = await User.findOneAndUpdate(
+            {$or:[
+                { email: req.body.email },
+                { username: req.body.username }
+            ], password: hashpass});
+        res.redirect('/');
+
+        if (!user) {
+            res.render('password', { errors: { email: { message: 'email / username not found' } } })
+            return;
+        }
+        
+    } catch (e) {
+        if (e.errors) {
+            console.log(e.errors);
+            res.render('error', { errors: e.errors })
             return;
         }
         return res.status(400).send({

@@ -11,7 +11,7 @@ async function main() {
     try {
       await client.connect();
       const db = client.db();
-      const results = await db.collection("user").find({}).count();
+      const results = await db.collection("users").find({}).count();
   
       /**
        * If existing records then delete the current collections
@@ -25,7 +25,7 @@ async function main() {
        */
   
       const data = await fs.readFile(path.join(__dirname, "user.json"), "utf8");
-      await db.collection("user").insertOne(JSON.parse(data));
+      await db.collection("users").insertOne(JSON.parse(data));
 
       process.exit();
     } catch (error) {
