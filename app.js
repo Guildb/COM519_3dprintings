@@ -89,6 +89,12 @@ app.get("/password", (req, res)=>{
 app.post("/password", userController.password);
 
 
+app.get("/userInfo", userController.listUser);
+app.get("/updateUser", userController.edit);
+app.post("/updateUser", userController.update);
+
+
+
 app.get("/charts", (req, res)=>{
   res.render("charts.ejs", { errors: {}, message:{} });
 });
@@ -100,21 +106,21 @@ app.get("/tables", (req, res)=>{
 
 
 app.get("/401", (req, res)=>{
-  res.render("401.ejs", { errors:{} });
+  res.render("401.ejs", { errors:{}, message:{} });
 });
 
 
 app.get("/404", (req, res)=>{
-  res.render("404.ejs", { errors:{} });
+  res.render("404.ejs", { errors:{}, message:{} });
 });
 
 
 app.get("/500", (req, res)=>{
-  res.render("500.ejs", { errors:{} });
+  res.render("500.ejs", { errors:{}, message:{} });
 });
 
 app.get("/errors", (req, res)=>{
-  res.render("errors.ejs", { errors:{} });
+  res.render("errors.ejs", { errors:{}, message:{} });
 });
 
 

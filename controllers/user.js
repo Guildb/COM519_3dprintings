@@ -1,6 +1,62 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
+exports.listUser = async (req, res) => {
+    try {
+        console.log(req.session.userID)
+      const message = req.query.message;
+      const id = req.session.userID;
+      const user = await User.findById(id)
+      res.render("userInfo", { user: user, message: message });
+    } catch (e) {
+      res.status(404).render("errors", { message: "could not list user" });
+    }
+};
+
+exports.edit = async (req, res) => {
+    const id = req.session.userID;
+    try {
+      const user = await User.findById(id);
+      res.render('updateUser', { user: user, errors: {}, message:{} });
+    } catch (e) {
+      res.status(404).render("errors", {
+        message: `couldn't find user ${id}.`,
+      });
+    }
+  };
+
+exports.update = async (req, res) => {
+    const id = req.session.userID;
+    try {
+      const user = await User.findOne({
+        $and:[
+            {_id: {$ne: id}},
+            {$or:[
+                { email: req.body.email },
+                { username: req.body.username }
+            ]},
+        ]});
+
+    if (user) {
+        if(user.email == req.body.email){
+            res.render('updateUser', { user: user, errors: { email: { message: 'email already in use' } } })
+            return;
+        } else if (user.username == req.body.username){
+            res.render('updateUser', { user: user, errors: { username: { message: 'username already in use' } } })
+            return;
+        }
+    }
+    else{
+        const user = await User.updateOne({ _id: id }, req.body);
+        res.redirect('userInfo');
+    }
+    } catch (e) {
+        res.status(404).send({
+            message: `could find user ${e}.`,
+          });
+    }
+  };
+
 exports.login = async (req, res) => {
     try {
         const user = await User.findOne({
@@ -9,7 +65,6 @@ exports.login = async (req, res) => {
                 { username: req.body.email }
             ]
             });
-        console.log(user)
         if (!user) {
             res.render('login', { errors: { email: { message: 'email not found' } } })
             return;
@@ -18,7 +73,7 @@ exports.login = async (req, res) => {
         const match = await bcrypt.compare(req.body.password, user.password);
         if (match) {
             req.session.userID = user._id;
-            console.log(req.session.userID);
+            req.session.user = user;
             res.redirect('/');
             return
         }
@@ -27,7 +82,6 @@ exports.login = async (req, res) => {
 
 
     } catch (e) {
-        console.log(e)
         return res.status(400).send({
             message: JSON.parse(e),
         });
@@ -71,7 +125,6 @@ exports.create = async (req, res) => {
         
     } catch (e) {
         if (e.errors) {
-            console.log(e.errors);
             res.render('error', { errors: e.errors })
             return;
         }
