@@ -18,39 +18,58 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">User Info</h1>
-                        <div class="mt-4 mb-0">
+                        
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <h1 class="mt-4">User Info</h1>
                             <div class="d-grid"><a class="btn btn-primary btn-block" href="updateUser">Edit User</a></div>
                         </div>
+                        <p></p>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item active">ID</li>
-                                    <li class="breadcrumb-item active"><%=  user._id  %></li>
-                                </ol>
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">ID</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white">
+                                            <i class="fas fa-angle-right"></i>
+                                            <%=  user._id  %>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item active">Name</li>
-                                    <li class="breadcrumb-item active"><%=  user.name  %></li>
-                                </ol>
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">Name</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white">
+                                            <i class="fas fa-angle-right"></i>
+                                            <%=  user.name  %>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item active">Username</li>
-                                    <li class="breadcrumb-item active"><%=  user.username  %></li>
-                                </ol>
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">Username</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white">
+                                            <i class="fas fa-angle-right"></i>
+                                            <%=  user.username  %>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item active">Email</li>
-                                    <li class="breadcrumb-item active"><%=  user.email  %></li>
-                                </ol>
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">E-mail</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <div class="small text-white">
+                                            <i class="fas fa-angle-right"></i>
+                                            <%=  user.email  %>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
-                       
-                        
                     </div>
                 </main>
                 <%- include('common/footer'); -%>

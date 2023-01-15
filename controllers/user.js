@@ -39,10 +39,10 @@ exports.update = async (req, res) => {
 
     if (user) {
         if(user.email == req.body.email){
-            res.render('updateUser', { user: user, errors: { email: { message: 'email already in use' } } })
+            res.render('updateUser', { errors: { email: { message: 'email already in use' } } })
             return;
         } else if (user.username == req.body.username){
-            res.render('updateUser', { user: user, errors: { username: { message: 'username already in use' } } })
+            res.render('updateUser', { errors: { username: { message: 'username already in use' } } })
             return;
         }
     }
@@ -139,7 +139,7 @@ exports.password = async (req, res) => {
         const password = req.body.password
         const passwordconfirm = req.body.passwordconfirm
         if(password != passwordconfirm){
-            res.render('register', { errors: { password: { message: 'passwords do not match' } }})
+            res.render('password', { errors: { password: { message: 'passwords do not match' } }})
             return;
         }
         const hashpass = await bcrypt.hash(password, 10);
