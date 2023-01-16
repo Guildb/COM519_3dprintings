@@ -120,12 +120,12 @@ exports.create = async (req, res) => {
                 username: req.body.username, 
                 name: req.body.name});
             await user.save();
-            res.render('/')
+            res.render('/');
         }
         
     } catch (e) {
         if (e.errors) {
-            res.render('error', { errors: e.errors })
+            res.render('errors', { errors: e.errors })
             return;
         }
         return res.status(400).send({
@@ -159,7 +159,7 @@ exports.password = async (req, res) => {
     } catch (e) {
         if (e.errors) {
             console.log(e.errors);
-            res.render('error', { errors: e.errors })
+            res.render('errors', { errors: e.errors })
             return;
         }
         return res.status(400).send({

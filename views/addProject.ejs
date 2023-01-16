@@ -18,42 +18,45 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Update User</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Project</h3></div>
                                     <div class="card-body">
-                                        <form method="POST" action="/updateUser">
+                                        <form method="POST" action="/addProject">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputName" type="text" placeholder="Enter your Name" name="name" value="<%= user.name %>" />
-                                                        <label for="inputFirstName">Name</label>
+                                                        <input class="form-control" id="inputName" type="text" placeholder="Enter your Name" name="name" />
+                                                        <label for="inputName">Name</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" name="username" value="<%= user.username %>"/>
-                                                        <label for="inputLastName">Username</label>
-                                                        <% if (errors['username']) {%>
-                                                            <p style="color: red"><%= errors['username'].message %></p>
-                                                        <% } %>
+                                                        <input class="form-control" id="inputLink" type="text" placeholder="Enter Link" name="link"/>
+                                                        <label for="inputLink">Link</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" value="<%= user.email %>"/>
-                                                <label for="inputEmail">Email address</label>
-                                                <% if (errors['email']) { %>
-                                                    <p style="color: red"><%= errors['email'].message %></p>
-                                                <% } %>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <input class="form-control" id="inputPicture" type="file" placeholder="Select a file" name="picture"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="type">Choose a type:</label>
+                                                    <select id="type" name="typelist">
+                                                        <% types.forEach(type => { %>
+                                                        <option value="<%= type._id %>"><%= type.type %></option>
+                                                        <%})%>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary btn-block">Update User</button>
+                                                    <button type="submit" class="btn btn-primary btn-block">Add Project</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="/userInfo">Go Back</a></div>
+                                        <div class="small"><a href="/">Go Back</a></div>
                                     </div>
                                 </div>
                             </div>

@@ -13,6 +13,9 @@ const User = require("./models/User");
  */
 
 const userController = require("./controllers/user");
+const projectController = require("./controllers/project");
+const orderController = require("./controllers/order");
+const typeController = require("./controllers/type");
 
 
 
@@ -93,6 +96,14 @@ app.get("/userInfo", userController.listUser);
 app.get("/updateUser", userController.edit);
 app.post("/updateUser", userController.update);
 
+
+app.get("/addProject", typeController.list);
+app.post("/addProject", projectController.create);
+
+app.get("/addType", (req, res)=>{
+  res.render("addType.ejs", { errors: {}, message:{} });
+});
+app.post("/addType", typeController.create);
 
 
 app.get("/charts", (req, res)=>{
