@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const orderSchema = new Schema(
     {
         buyer_name: { type: String, required: [true, 'Name is required'] },
-        Status: { type: Number,},
+        status: { type: Number,},
         project_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Project", 

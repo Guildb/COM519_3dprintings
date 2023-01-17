@@ -100,8 +100,9 @@ app.post("/addProject", projectController.create);
 app.get("/viewProject", projectController.list);
 app.get("/viewProject/ByType/:id", projectController.viewById);
 
-app.get("/addOrder", projectController.listToOrder);
+app.get("/addOrder/:id", projectController.addOrder);
 app.post("/addOrder", orderController.create);
+app.get("/viewOrder", orderController.list);
 
 
 

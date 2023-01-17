@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Add Project</title>
+        <title>Add Order</title>
         <link href="/styles/styles.css" rel="stylesheet" /> 
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -22,24 +22,13 @@
                                     <div class="card-body">
                                         <form method="POST" action="/addOrder">
                                             <div class="row mb-3">
-                                                <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="inputName" type="text" placeholder="Enter The Buyer Name" name="name" />
                                                         <label for="inputName">Name of Buyer</label>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="project">Choose a Project:</label>
-                                                    <select id="project" name="projectid">
-                                                        <% projects.forEach(project => { %>
-                                                        <option value="<%= project.id %>"><%= project.name %></option>
-                                                        <%})%>
-                                                    </select>
-                                                </div>
-                                                
-                                            </div>
+                                                <input type="hidden" id="projectid" name="projectid" value="<%=projects.id%>"/>
+                                            
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
                                                     <button type="submit" class="btn btn-primary btn-block">Add Order</button>

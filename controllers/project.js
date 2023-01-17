@@ -1,9 +1,11 @@
 const Project = require("../models/Project");
+const Type = require("../models/Type");
 
 exports.list = async (req, res) => {
     try {
       const projects = await Project.find({});
-      res.render("viewProject", { projects: projects});
+      const types = await Type.find({});
+      res.render("viewProject", { projects: projects, types:types});
     } catch (e) {
       res.status(404).send({ message: "could not list projects" });
     }
@@ -12,8 +14,19 @@ exports.list = async (req, res) => {
   exports.viewById = async (req, res) => {
     try {
       const id = req.params.id;
+      const types = await Type.find({});
       const projects = await Project.find({ type_id: id });
-      res.render("viewProject", { projects: projects});
+      res.render("viewProject", { projects: projects, types:types});
+    } catch (e) {
+      res.status(404).send({ message: "could not list projects" });
+    }
+  };
+
+  exports.addOrder = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const projects = await Project.findById(id);
+      res.render("addOrder", { projects: projects});
     } catch (e) {
       res.status(404).send({ message: "could not list projects" });
     }

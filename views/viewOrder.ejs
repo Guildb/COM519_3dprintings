@@ -21,43 +21,50 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Projects</h1>
+                        <h1 class="mt-4">Orders</h1>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Projects Information
+                                Orders Information
                             </div>
                             <div class="card-body">
                                 <table id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th></th>
+                                            <th>Buyer Name</th>
+                                            <th>Project Name</th>
+                                            <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th></th>
+                                            <th>Buyer Name</th>
+                                            <th>Project Name</th>
+                                            <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <% projects.forEach(project => { %>
+                                        <% orders.forEach(order => { %>
                                             <tr>
-                                                <td><%= project.name %></td>
-                                                <% types.forEach(type => { 
-                                                    if(type.id == project.type_id) 
+                                                <td><%= order.buyer_name %></td>
+                                                <% projects.forEach(project => { 
+                                                    if(project.id == order.project_id) 
                                                     { %>
-                                                        <td><%=  type.type  %></td>
+                                                        <td><%=  project.name  %></td>
+                                                        <%
+                                                            if(order.status == 1)
+                                                            { %>
+                                                                <td> Open </td>
+                                                            <%
+                                                            }else{ %>
+                                                                <td> Closed</td>
+                                                            <%}
+                                                        %>
                                                         <td><a  class="btn btn-primary btn-block"  href="<%=  project.link  %>">Link</a></td>
-                                                        <td><a class="btn btn-primary btn-block" href="/addOrder/<%=project.id%>">Add Order</a></td>
-                                                    <%}%>
-                                                <%})%>
-                                                
+                                                    <%}   
+                                                })%>
                                             </tr>
                                         <%})%>
                                     </tbody>
