@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Add Type</title>
+        <title>Add Project</title>
         <link href="/styles/styles.css" rel="stylesheet" /> 
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -18,14 +18,28 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Type</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Add Project</h3></div>
                                     <div class="card-body">
-                                        <form method="POST" action="/addType">
+                                        <form method="POST" action="/addProject">
                                             <div class="row mb-3">
+                                                <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="inputName" type="text" placeholder="Enter your Name" name="name" />
-                                                        <label for="inputName">Name</label>
+                                                        <label for="inputName">Name of Buyer</label>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="project">Choose a type:</label>
+                                                    <select id="project" name="projectid">
+                                                        <% projects.forEach(project => { %>
+                                                        <option value="<%= project.id %>"><%= project.name %></option>
+                                                        <%})%>
+                                                    </select>
+                                                </div>
+                                                
+                                            </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
                                                     <button type="submit" class="btn btn-primary btn-block">Add Project</button>

@@ -2,9 +2,8 @@ const Project = require("../models/Project");
 
 exports.list = async (req, res) => {
     try {
-      const message = req.query.message;
       const projects = await Project.find({});
-      res.render("viewProject", { projects: projects, message: message });
+      res.render("viewProject", { projects: projects});
     } catch (e) {
       res.status(404).send({ message: "could not list projects" });
     }
@@ -13,11 +12,19 @@ exports.list = async (req, res) => {
   exports.viewById = async (req, res) => {
     try {
       const id = req.params.id;
-      const message = req.query.message;
       const projects = await Project.find({ type_id: id });
-      res.render("viewProjects", { projects: projects, message: message });
+      res.render("viewProject", { projects: projects});
     } catch (e) {
-      res.status(404).send({ message: "could not list orders" });
+      res.status(404).send({ message: "could not list projects" });
+    }
+  };
+
+  exports.listToOrder = async (req, res) => {
+    try {
+      const projects = await Project.find({});
+      res.render("addOrder", { projects: projects});
+    } catch (e) {
+      res.status(404).send({ message: "could not list projects" });
     }
   };
   

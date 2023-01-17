@@ -6,9 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link href="styles/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css">
+        <title>Display Projects</title>
+        <link href="/styles/styles.css" rel="stylesheet" type="text/css"  />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -22,7 +21,6 @@
                             <div class="row">
                                 <% projects.forEach(project => { %>
                                     <div class="col-xl-3 col-md-6">
-                                    <a href="updateUser">
                                         <div class="card bg-secondary text-white mb-4">
                                             <div class="card-body"><%=  project.name  %></div>
                                             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -30,7 +28,6 @@
                                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                             </div>
                                         </div>
-                                    </a>
                                 </div>
                                 <%})%>
                             </div>
@@ -39,7 +36,6 @@
                 <%- include('common/footer'); -%>
             </div>
         </div>
-        <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </body>
 </html>

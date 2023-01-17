@@ -11,27 +11,16 @@ exports.list = async (req, res) => {
     }
   };
   
-  exports.delete = async (req, res) => {
-    const id = req.params.id;
-  
-    try {
-  
-      await Order.findByIdAndRemove(id);
-      res.redirect("/orders");
-    } catch (e) {
-      res.status(404).send({
-        message: `could not delete  record ${id}.`,
-      });
-    }
-  };
-  
-  
   exports.create = async (req, res) => {
   
     try {
-      const order = new Order({ name: req.body.name, twitter: req.body.twitter });
+      const user_id = req.session.userID;
+      const project_id = req.session.projectid;
+      console.log(user_id);
+      console.log(project_id);
+      const order = new Order({ buyer_name: req.body.name, Status: 1 , project_id: project_id, user_id: user_id});
       await order.save();
-      res.redirect('/tasters/?message=taster has been created')
+      res.redirect('/')
     } catch (e) {
       if (e.errors) {
         console.log(e.errors);

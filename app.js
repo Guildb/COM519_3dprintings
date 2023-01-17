@@ -98,7 +98,10 @@ app.post("/updateUser", userController.update);
 app.get("/addProject", typeController.list);
 app.post("/addProject", projectController.create);
 app.get("/viewProject", projectController.list);
-app.get("/viewProject/type/:id", projectController.viewById);
+app.get("/viewProject/ByType/:id", projectController.viewById);
+
+app.get("/addOrder", projectController.listToOrder);
+app.post("/addOrder", orderController.create);
 
 
 
