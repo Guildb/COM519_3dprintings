@@ -67,9 +67,7 @@ const authMiddleware = async (req, res, next) => {
   }
 
 
-app.get("/",(req, res)=>{
-    res.render("index", { errors: {}, message:{} });
-});
+app.get("/", orderController.dashboard);
 
 
 app.get("/login", (req, res)=>{
@@ -103,6 +101,10 @@ app.get("/viewProject/ByType/:id", projectController.viewById);
 app.get("/addOrder/:id", projectController.addOrder);
 app.post("/addOrder", orderController.create);
 app.get("/viewOrder", orderController.list);
+app.get("/viewOrder/closed", orderController.closed);
+app.get("/viewOrder/open", orderController.open);
+app.get("/viewOrder/deliver/:id", orderController.deliver);
+app.get("/viewOrder/remove/:id", orderController.remove);
 
 
 
@@ -144,7 +146,7 @@ app.get("/errors", (req, res)=>{
 app.get("/logout", async (req, res) => {
     req.session.destroy();
     global.user = false;
-    res.redirect('login');
+    res.redirect('/');
   })
 
 

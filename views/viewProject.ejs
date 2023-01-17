@@ -34,14 +34,12 @@
                                             <th>Name</th>
                                             <th>Type</th>
                                             <th></th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
                                             <th>Type</th>
-                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -53,8 +51,8 @@
                                                     if(type.id == project.type_id) 
                                                     { %>
                                                         <td><%=  type.type  %></td>
-                                                        <td><a  class="btn btn-primary btn-block"  href="<%=  project.link  %>">Link</a></td>
-                                                        <td><a class="btn btn-primary btn-block" href="/addOrder/<%=project.id%>">Add Order</a></td>
+                                                        <td><a  class="btn btn-primary btn-block"  href="<%=  project.link  %>">Link</a>
+                                                        <a class="btn btn-success btn-block" href="/addOrder/<%=project.id%>">Add Order</a></td>
                                                     <%}%>
                                                 <%})%>
                                                 

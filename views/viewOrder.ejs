@@ -62,7 +62,13 @@
                                                                 <td> Closed</td>
                                                             <%}
                                                         %>
-                                                        <td><a  class="btn btn-primary btn-block"  href="<%=  project.link  %>">Link</a></td>
+                                                        <td>
+                                                            <a  class="btn btn-primary btn-block"  href="<%=  project.link  %>">Link</a>
+                                                            <% if(order.status ==1 ){ %>
+                                                                <a class="btn btn-success btn-block"  href="/viewOrder/deliver/<%=  order.id  %>">Deliver</a>
+                                                            <%}%>
+                                                            <a  class="btn btn-danger btn-block"  href="/viewOrder/remove/<%=  order.id  %>">Remove</a>
+                                                        </td>
                                                     <%}   
                                                 })%>
                                             </tr>
