@@ -7,11 +7,11 @@ const orderSchema = new Schema(
         Status: { type: Number,},
         project_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Projects", 
+            ref: "Project", 
         },
         user_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Users", 
+            ref: "User", 
         },
     },
     { timestamps: true }

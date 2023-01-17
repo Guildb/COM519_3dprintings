@@ -15,9 +15,7 @@ exports.list = async (req, res) => {
   
     try {
       const user_id = req.session.userID;
-      const project_id = req.session.projectid;
-      console.log(user_id);
-      console.log(project_id);
+      const project_id = req.body.projectid;
       const order = new Order({ buyer_name: req.body.name, Status: 1 , project_id: project_id, user_id: user_id});
       await order.save();
       res.redirect('/')

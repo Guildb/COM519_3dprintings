@@ -40,8 +40,7 @@ exports.list = async (req, res) => {
 
     } catch (e) {
       if (e.errors) {
-        res.redirect('errors', { errors: e.errors })
-        return;
+        res.status(404).send({ message: "could not list projects" });
       }
       return res.status(400).send({
           message: JSON.parse(e),
