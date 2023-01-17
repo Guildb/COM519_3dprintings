@@ -1,12 +1,12 @@
 
 require("dotenv").config();
-const express = require("express");
-const path = require("path");
-const mongoose = require("mongoose");
-const chalk = require("chalk");
-const bodyParser = require("body-parser");
-const expressSession = require("express-session");
-const User = require("./models/User");
+const express = require("express"),
+      path = require("path"),
+      mongoose = require("mongoose"),
+      chalk = require("chalk"),
+      bodyParser = require("body-parser"),
+      expressSession = require("express-session"),
+      User = require("./models/User");
 
 /**
  * Controllers (route handlers).
@@ -16,8 +16,6 @@ const userController = require("./controllers/user");
 const projectController = require("./controllers/project");
 const orderController = require("./controllers/order");
 const typeController = require("./controllers/type");
-
-
 
 const app = express();
 app.set("view engine", "ejs");
@@ -99,13 +97,16 @@ app.post("/updateUser", userController.update);
 
 app.get("/addProject", typeController.list);
 app.post("/addProject", projectController.create);
+app.get("/viewProject", projectController.list);
+app.get("/viewProject/type/:id", projectController.viewById);
+
+
 
 app.get("/addType", (req, res)=>{
   res.render("addType.ejs", { errors: {}, message:{} });
 });
 app.post("/addType", typeController.create);
 app.get("/viewtype", typeController.view);
-
 
 app.get("/charts", (req, res)=>{
   res.render("charts.ejs", { errors: {}, message:{} });
@@ -139,7 +140,7 @@ app.get("/errors", (req, res)=>{
 app.get("/logout", async (req, res) => {
     req.session.destroy();
     global.user = false;
-    res.redirect('/');
+    res.redirect('login');
   })
 
 

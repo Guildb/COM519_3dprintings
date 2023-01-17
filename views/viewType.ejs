@@ -28,8 +28,8 @@
                         <div class="row">
                             <% types.forEach(type => { %>
                             <div class="col-xl-2 col-md-6">
-                                <a href="updateUser">
-                                    <div class="card bg-secondary text-white mb-4">
+                                <a href="/viewProject/type/<%= type.id %>">
+                                    <div class="card bg-secondary text-white mb-4 align-items-center">
                                         <div class="card-body"><%=  type.type  %></div>
                                     </div>
                                 </a>

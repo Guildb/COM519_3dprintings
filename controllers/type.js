@@ -2,23 +2,21 @@ const Type = require("../models/Type");
 
 exports.list = async (req, res) => {
     try {
-      console.log(req.query)
       const message = req.query.message;
       const types = await Type.find({});
       res.render("addProject", { types: types, message: message });
     } catch (e) {
-      res.status(404).send({ message: "could not list orders" });
+      res.status(404).send({ message: "could not list types" });
     }
   };
 
   exports.view = async (req, res) => {
     try {
-      console.log(req.query)
       const message = req.query.message;
       const types = await Type.find({});
       res.render("viewType", { types: types, message: message });
     } catch (e) {
-      res.status(404).send({ message: "could not list orders" });
+      res.status(404).send({ message: "could not list types" });
     }
   };
   
@@ -32,7 +30,6 @@ exports.list = async (req, res) => {
 
     } catch (e) {
       if (e.errors) {
-        console.log(e.errors);
         res.render('errors', { message: e })
         return;
       }
