@@ -104,6 +104,7 @@ app.get("/addType", (req, res)=>{
   res.render("addType.ejs", { errors: {}, message:{} });
 });
 app.post("/addType", typeController.create);
+app.get("/viewtype", typeController.view);
 
 
 app.get("/charts", (req, res)=>{

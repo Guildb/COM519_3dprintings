@@ -10,6 +10,17 @@ exports.list = async (req, res) => {
       res.status(404).send({ message: "could not list orders" });
     }
   };
+
+  exports.view = async (req, res) => {
+    try {
+      console.log(req.query)
+      const message = req.query.message;
+      const types = await Type.find({});
+      res.render("viewType", { types: types, message: message });
+    } catch (e) {
+      res.status(404).send({ message: "could not list orders" });
+    }
+  };
   
   
   exports.create = async (req, res) => {
