@@ -15,7 +15,7 @@ exports.list = async (req, res) => {
   exports.open = async (req, res) => {
     try {
       const user_id = req.session.userID;
-      const orders = await Order.find({user_id: user_id, status: 0 });
+      const orders = await Order.find({user_id: user_id, status: 1 });
       const projects = await Project.find({});
       res.render("viewOrder", { orders: orders, projects: projects });
     } catch (e) {
@@ -26,7 +26,7 @@ exports.list = async (req, res) => {
   exports.closed = async (req, res) => {
     try {
       const user_id = req.session.userID;
-      const orders = await Order.find({user_id: user_id, status: 1});
+      const orders = await Order.find({user_id: user_id, status: 0});
       const projects = await Project.find({});
       res.render("viewOrder", { orders: orders, projects: projects });
     } catch (e) {
