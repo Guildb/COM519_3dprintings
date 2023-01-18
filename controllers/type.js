@@ -6,7 +6,7 @@ exports.list = async (req, res) => {
       const types = await Type.find({});
       res.render("addProject", { types: types, message: message });
     } catch (e) {
-      res.status(404).send({ message: "could not list types" });
+      res.render("404", { message: "could not list types" });
     }
   };
 
@@ -16,7 +16,7 @@ exports.list = async (req, res) => {
       const types = await Type.find({});
       res.render("viewType", { types: types, message: message });
     } catch (e) {
-      res.status(404).send({ message: "could not list types" });
+      res.render("404", { message: "could not list types" });
     }
   };
   
@@ -26,11 +26,11 @@ exports.list = async (req, res) => {
     try {
       const type = new Type({ type: req.body.name});
       await type.save();
-      res.redirect('/');
+      res.redirect('dashboard');
 
     } catch (e) {
       if (e.errors) {
-        res.render('errors', { message: e })
+        res.render("404", { message: e })
         return;
       }
       return res.status(400).send({

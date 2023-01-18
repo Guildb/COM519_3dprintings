@@ -7,7 +7,7 @@ exports.list = async (req, res) => {
       const types = await Type.find({});
       res.render("viewProject", { projects: projects, types:types});
     } catch (e) {
-      res.status(404).send({ message: "could not list projects" });
+      res.render("404", { message: "could not list projects" });
     }
   };
 
@@ -18,7 +18,7 @@ exports.list = async (req, res) => {
       const projects = await Project.find({ type_id: id });
       res.render("viewProject", { projects: projects, types:types});
     } catch (e) {
-      res.status(404).send({ message: "could not list projects" });
+      res.render("404", { message: "could not list projects" });
     }
   };
 
@@ -28,7 +28,7 @@ exports.list = async (req, res) => {
       const projects = await Project.findById(id);
       res.render("addOrder", { projects: projects});
     } catch (e) {
-      res.status(404).send({ message: "could not list projects" });
+      res.render("404", { message: "could not list projects" });
     }
   };
 
@@ -37,7 +37,7 @@ exports.list = async (req, res) => {
       const projects = await Project.find({});
       res.render("addOrder", { projects: projects});
     } catch (e) {
-      res.status(404).send({ message: "could not list projects" });
+      res.render("404", {message: "could not list projects" });
     }
   };
   
@@ -49,14 +49,32 @@ exports.list = async (req, res) => {
 
       const project = new Project({ name: req.body.name, link: req.body.link ,img: req.body.picture, type_id: req.body.typelist  });
       await project.save();
-      res.redirect('/');
+      res.redirect('dashboard');
 
     } catch (e) {
       if (e.errors) {
-        res.status(404).send({ message: "could not list projects" });
+        res.render("404", { message: "could not list projects" });
       }
       return res.status(400).send({
           message: JSON.parse(e),
+      });
+    }
+  }
+
+  exports.remove = async (req, res) => {
+
+    try {
+      const id = req.params.id;
+      const projects = await Project.findByIdAndRemove(id);
+      res.redirect('/viewProject')
+    } catch (e) {
+      if (e.errors) {
+        console.log(e.errors);
+        res.render("404", { errors: e.errors })
+        return;
+      }
+      return res.status(400).send({
+        message: JSON.parse(e),
       });
     }
   }

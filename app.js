@@ -67,13 +67,15 @@ const authMiddleware = async (req, res, next) => {
   }
 
 
-app.get("/", orderController.dashboard);
+app.get("/dashboard",authMiddleware, orderController.dashboard);
 
 
-app.get("/login", (req, res)=>{
+
+app.get("/", (req, res)=>{
   res.render("login.ejs", { errors: {}, message:{}});
 });
 app.post("/login", userController.login);
+
 
 
 app.get("/register", (req, res)=>{
@@ -82,57 +84,53 @@ app.get("/register", (req, res)=>{
 app.post("/register", userController.create);
 
 
+
 app.get("/password", (req, res)=>{
   res.render("password.ejs", { errors: {}, message:{} });
 });
 app.post("/password", userController.password);
 
 
-app.get("/userInfo", userController.listUser);
-app.get("/updateUser", userController.edit);
-app.post("/updateUser", userController.update);
 
-
-app.get("/addProject", typeController.list);
-app.post("/addProject", projectController.create);
-app.get("/viewProject", projectController.list);
-app.get("/viewProject/ByType/:id", projectController.viewById);
-
-app.get("/addOrder/:id", projectController.addOrder);
-app.post("/addOrder", orderController.create);
-app.get("/viewOrder", orderController.list);
-app.get("/viewOrder/closed", orderController.closed);
-app.get("/viewOrder/open", orderController.open);
-app.get("/viewOrder/deliver/:id", orderController.deliver);
-app.get("/viewOrder/remove/:id", orderController.remove);
+app.get("/userInfo",authMiddleware, userController.listUser);
+app.get("/updateUser",authMiddleware, userController.edit);
+app.post("/updateUser",authMiddleware, userController.update);
 
 
 
-app.get("/addType", (req, res)=>{
+app.get("/addProject",authMiddleware, typeController.list);
+app.post("/addProject",authMiddleware, projectController.create);
+app.get("/viewProject",authMiddleware, projectController.list);
+app.get("/viewProject/ByType/:id",authMiddleware, projectController.viewById);
+app.get("/viewProject/remove/:id",authMiddleware, projectController.remove);
+
+
+
+app.get("/addOrder/:id",authMiddleware, projectController.addOrder);
+app.post("/addOrder",authMiddleware, orderController.create);
+app.get("/viewOrder",authMiddleware, orderController.list);
+app.get("/viewOrder/closed",authMiddleware, orderController.closed);
+app.get("/viewOrder/open",authMiddleware, orderController.open);
+app.get("/viewOrder/deliver/:id",authMiddleware, orderController.deliver);
+app.get("/viewOrder/remove/:id",authMiddleware, orderController.remove);
+
+
+
+app.get("/addType",authMiddleware, (req, res)=>{
   res.render("addType.ejs", { errors: {}, message:{} });
 });
-app.post("/addType", typeController.create);
-app.get("/viewtype", typeController.view);
+app.post("/addType",authMiddleware, typeController.create);
+app.get("/viewtype",authMiddleware, typeController.view);
 
-app.get("/charts", (req, res)=>{
-  res.render("charts.ejs", { errors: {}, message:{} });
-});
-
-
-app.get("/tables", (req, res)=>{
-  res.render("tables.ejs", { errors: {}, message:{} });
-});
 
 
 app.get("/401", (req, res)=>{
   res.render("401.ejs", { errors:{}, message:{} });
 });
 
-
 app.get("/404", (req, res)=>{
   res.render("404.ejs", { errors:{}, message:{} });
 });
-
 
 app.get("/500", (req, res)=>{
   res.render("500.ejs", { errors:{}, message:{} });
@@ -143,7 +141,7 @@ app.get("/errors", (req, res)=>{
 });
 
 
-app.get("/logout", async (req, res) => {
+app.get("/logout",authMiddleware, async (req, res) => {
     req.session.destroy();
     global.user = false;
     res.redirect('/');

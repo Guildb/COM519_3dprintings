@@ -3,13 +3,12 @@ const bcrypt = require('bcrypt');
 
 exports.listUser = async (req, res) => {
     try {
-        console.log(req.session.userID)
       const message = req.query.message;
       const id = req.session.userID;
       const user = await User.findById(id)
       res.render("userInfo", { user: user, message: message });
     } catch (e) {
-      res.status(404).render("errors", { message: "could not list user" });
+        res.render("404", {message: "could not list user" });
     }
 };
 
@@ -19,7 +18,7 @@ exports.edit = async (req, res) => {
       const user = await User.findById(id);
       res.render('updateUser', { user: user, errors: {}, message:{} });
     } catch (e) {
-      res.status(404).render("errors", {
+        res.render("404", {
         message: `couldn't find user ${id}.`,
       });
     }
@@ -51,7 +50,7 @@ exports.update = async (req, res) => {
         res.redirect('userInfo');
     }
     } catch (e) {
-        res.status(404).send({
+        res.render("404", {
             message: `could find user ${e}.`,
           });
     }
@@ -66,7 +65,7 @@ exports.login = async (req, res) => {
             ]
             });
         if (!user) {
-            res.render('login', { errors: { email: { message: 'email not found' } } })
+            res.render('/', { errors: { email: { message: 'email not found' } } })
             return;
         }
 
@@ -74,11 +73,11 @@ exports.login = async (req, res) => {
         if (match) {
             req.session.userID = user._id;
             req.session.user = user;
-            res.redirect('/');
+            res.redirect('dashboard');
             return
         }
 
-        res.render('login', { errors: { password: { message: 'password does not match' } } })
+        res.render('/', { errors: { password: { message: 'password does not match' } } })
 
 
     } catch (e) {
@@ -120,12 +119,12 @@ exports.create = async (req, res) => {
                 username: req.body.username, 
                 name: req.body.name});
             await user.save();
-            res.render('/');
+            res.render('dashboard');
         }
         
     } catch (e) {
         if (e.errors) {
-            res.render('errors', { errors: e.errors })
+            res.render("404", { errors: e.errors })
             return;
         }
         return res.status(400).send({
@@ -149,7 +148,7 @@ exports.password = async (req, res) => {
                 { email: req.body.email },
                 { username: req.body.username }
             ], password: hashpass});
-        res.redirect('/');
+        res.redirect('dashboard');
 
         if (!user) {
             res.render('password', { errors: { email: { message: 'email / username not found' } } })
@@ -159,7 +158,7 @@ exports.password = async (req, res) => {
     } catch (e) {
         if (e.errors) {
             console.log(e.errors);
-            res.render('errors', { errors: e.errors })
+            res.render("404", { errors: e.errors })
             return;
         }
         return res.status(400).send({
