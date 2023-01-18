@@ -24,8 +24,16 @@
                             <div class="row">
                                 <div class="col-xl-3 col-md-6">
                                     <div class="card bg-success text-white mb-4">
-                                        <div class="card-body">Completed Orders: <%= closed_orders %>
+
+                                        <div class="card-body">
+                                            Completed Orders:
+                                            <% if(closed_orders){%>
+                                                <%= closed_orders %>
+                                                    <%}else{%>
+                                                        0
+                                                        <%}%>
                                         </div>
+
                                         <% if(user){%>
                                             <div class="card-footer d-flex align-items-center justify-content-between">
                                                 <a class="small text-white stretched-link" href="/viewOrder/closed">View
@@ -37,7 +45,14 @@
                                 </div>
                                 <div class="col-xl-3 col-md-6">
                                     <div class="card bg-danger text-white mb-4">
-                                        <div class="card-body">Orders to Make: <%= open_orders %>
+
+                                        <div class="card-body">
+                                            Orders to Make:
+                                            <% if(open_orders){%>
+                                                <%= open_orders %>
+                                                    <%}else{%>
+                                                        0
+                                                        <%}%>
                                         </div>
                                         <% if(user){%>
                                             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -56,7 +71,7 @@
                                             <canvas id="myChart"></canvas>
                                         </div>
                                         <div class="card-body"><canvas id="myBarChart" width="100%"
-                                                height="40"></canvas>
+                                                height="100%"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -84,14 +99,14 @@
             })
 
             //sorting the merged object
-            const data_sorted = merge_data.sort(function (b,a) {
-                return  a.data - b.data
+            const data_sorted = merge_data.sort(function (b, a) {
+                return a.data - b.data
             });
 
             //creating new list to store the information
             const final_label = [];
             const final_data = [];
-            for(i = 0; i < data_sorted.length; i++){
+            for (i = 0; i < data_sorted.length; i++) {
                 final_label.push(data_sorted[i].label)
                 final_data.push(data_sorted[i].data)
             }
@@ -101,8 +116,7 @@
                 datasets: [{
                     label: 'Total Orders',
                     data: final_data,
-                    borderWidth: 1,
-                    order: 1
+                    borderWidth: 1
 
                 }]
             };
@@ -112,7 +126,7 @@
                 type: 'bar',
                 data,
                 options: {
-                    barPercentage: 0.5,
+                    barPercentage: 1,
                     indexAxis: 'y'
 
                 }

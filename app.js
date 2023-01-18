@@ -6,7 +6,10 @@ const express = require("express"),
       chalk = require("chalk"),
       bodyParser = require("body-parser"),
       expressSession = require("express-session"),
-      User = require("./models/User");
+      User = require("./models/User"),
+      order = require("./models/Order"),
+      type = require("./models/Type"),
+      project = require("./models/Project")
 
 /**
  * Controllers (route handlers).
