@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
             ]
             });
         if (!user) {
-            res.render('/', { errors: { email: { message: 'email not found' } } })
+            res.redirect('/', { errors: { email: { message: 'email not found' } } })
             return;
         }
 
@@ -73,11 +73,11 @@ exports.login = async (req, res) => {
         if (match) {
             req.session.userID = user._id;
             req.session.user = user;
-            res.render('dashboard');
+            res.render('/dashboard');
             return
         }
 
-        res.render('/', { errors: { password: { message: 'password does not match' } } })
+        res.redirect('/', { errors: { password: { message: 'password does not match' } } })
 
 
     } catch (e) {
