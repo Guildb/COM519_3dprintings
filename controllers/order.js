@@ -61,7 +61,7 @@ exports.deliver = async (req, res) => {
   try {
     const id = req.params.id;
     const orders = await Order.updateOne({ _id: id }, { $set: { status: 0 } })
-    res.render('viewOrder')
+    res.redirect('viewOrder')
   } catch (e) {
     if (e.errors) {
       console.log(e.errors);
@@ -79,7 +79,7 @@ exports.remove = async (req, res) => {
   try {
     const id = req.params.id;
     const orders = await Order.findByIdAndRemove(id);
-    res.render('viewOrder')
+    res.redirect('viewOrder')
   } catch (e) {
     if (e.errors) {
       console.log(e.errors);
