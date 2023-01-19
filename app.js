@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express"),
   path = require("path"),
   mongoose = require("mongoose"),
+  cookieParser = require('cookie-parser');
+  expressSession = require("express-session");
   chalk = require("chalk"),
   bodyParser = require("body-parser"),
   User = require("./models/User"),
@@ -45,13 +47,19 @@ mongoose.connection.on("error", (err) => {
 /***
  * We are applying our middlewear
  */
-
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const expressSession = require("express-session");
-app.use(expressSession({ secret: 'for barr', cookie: { expires: new Date(253402300000000) } }))
+
+app.use(expressSession({ 
+  secret: 'for barr', 
+  cookie: 
+  { 
+    expires: new Date(253402300000000) 
+  } 
+}));
 
 global.user = false;
 app.use("*", async (req, res, next) => {
