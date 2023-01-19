@@ -33,7 +33,18 @@ const { PORT, MONGODB_URI } = process.env;
  * connect to database
  */
 
+mongoose.set('strictQuery',false);
+const connectDB = async()=>{
+  try{
+    const conn = await mongoose.connect(MONGODB_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  }catch(error){
+    console.log(error);
+    process.exit(1);
+  }
+}
 
+/***
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 mongoose.connection.on("error", (err) => {
   console.error(err);
@@ -44,7 +55,7 @@ mongoose.connection.on("error", (err) => {
   process.exit();
 });
 
-/***
+
  * We are applying our middlewear
  */
 
@@ -161,11 +172,19 @@ app.get("/logout", authMiddleware, async (req, res) => {
   res.redirect('/login');
 })
 
+connectDB().then(()=>{
+  app.listen(PORT, ()=>{
+    console.log(
+      `Example app listening at http://localhost:${PORT}`,
+      chalk.green("✓"))
+  })
+})
 
 
+/** 
 app.listen(PORT, () => {
   console.log(
     `Example app listening at http://localhost:${PORT}`,
     chalk.green("✓")
   );
-});
+});*/
