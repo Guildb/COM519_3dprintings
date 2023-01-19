@@ -53,7 +53,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.use(expressSession({ secret: 'for barr', cookie: {expires: new Date(253402300000000) }}))
+app.use(expressSession({ secret: 'for barr', cookie: { }}))
 
 global.user = false;
  app.use("*", async (req, res, next) =>{
