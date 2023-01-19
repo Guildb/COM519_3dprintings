@@ -75,12 +75,14 @@ const authMiddleware = async (req, res, next) => {
 
 app.get("/dashboard",authMiddleware, orderController.dashboard);
 
-
-
 app.get("/", (req, res)=>{
   res.render("login.ejs", { errors: {}, message:{}});
 });
-app.post("/", userController.login);
+
+app.get("/login", (req, res)=>{
+  res.render("login.ejs", { errors: {}, message:{}});
+});
+app.post("/login", userController.login);
 
 
 

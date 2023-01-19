@@ -27,11 +27,7 @@
 
                                         <div class="card-body">
                                             Completed Orders:
-                                            <% if(closed_orders){%>
                                                 <%= closed_orders %>
-                                                    <%}else{%>
-                                                        0
-                                                        <%}%>
                                         </div>
 
                                         <% if(user){%>
@@ -48,11 +44,7 @@
 
                                         <div class="card-body">
                                             Orders to Make:
-                                            <% if(open_orders){%>
                                                 <%= open_orders %>
-                                                    <%}else{%>
-                                                        0
-                                                        <%}%>
                                         </div>
                                         <% if(user){%>
                                             <div class="card-footer d-flex align-items-center justify-content-between">
