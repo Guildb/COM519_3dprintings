@@ -70,6 +70,7 @@ app.use("*", async (req, res, next) => {
   if (req.session.userID && !global.user) {
     const user = await User.findById(req.session.userID);
     global.user = user;
+    console.log(user);
   }
   next();
 })
