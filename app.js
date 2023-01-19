@@ -125,7 +125,7 @@ app.get("/viewOrder/remove/:id",authMiddleware, orderController.remove);
 
 
 app.get("/addType",authMiddleware, (req, res)=>{
-  res.render("addType.ejs",authMiddleware, { errors: {}, message:{} });
+  res.render("addType.ejs", { errors: {}, message:{} });
 });
 app.post("/addType",authMiddleware, typeController.create);
 app.get("/viewtype",authMiddleware, typeController.view);

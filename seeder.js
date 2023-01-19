@@ -41,9 +41,6 @@ async function main() {
      * Import the JSON data into the database
      */
 
-    const userData = await fs.readFile(path.join(__dirname, "user.json"), "utf8");
-    await db.collection("users").insertOne(JSON.parse(userData));
-
     const typesData = await fs.readFile(path.join(__dirname, "types.json"), "utf8");
     await db.collection("types").insertMany(JSON.parse(typesData));
 

@@ -26,7 +26,7 @@ exports.list = async (req, res) => {
     try {
       const type = new Type({ type: req.body.name});
       await type.save();
-      res.render('dashboard');
+      res.redirect('/dashboard');
 
     } catch (e) {
       if (e.errors) {

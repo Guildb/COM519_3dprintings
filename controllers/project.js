@@ -16,7 +16,7 @@ exports.list = async (req, res) => {
       const id = req.params.id;
       const types = await Type.find({});
       const projects = await Project.find({ type_id: id });
-      res.redirect("viewProject", { projects: projects, types:types});
+      res.render("viewProject", { projects: projects, types:types});
     } catch (e) {
       res.render("404", { message: "could not list projects" });
     }
@@ -49,7 +49,7 @@ exports.list = async (req, res) => {
 
       const project = new Project({ name: req.body.name, link: req.body.link ,img: req.body.picture, type_id: req.body.typelist  });
       await project.save();
-      res.render('dashboard');
+      res.redirect('/dashboard');
 
     } catch (e) {
       if (e.errors) {

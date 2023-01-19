@@ -73,7 +73,7 @@ exports.login = async (req, res) => {
         if (match) {
             req.session.userID = user._id;
             req.session.user = user;
-            res.redirect('dashboard');
+            res.redirect('/dashboard');
             return
         }
 
@@ -119,7 +119,7 @@ exports.create = async (req, res) => {
                 username: req.body.username, 
                 name: req.body.name});
             await user.save();
-            res.render('/');
+            res.redirect("/login")
         }
         
     } catch (e) {
