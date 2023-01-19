@@ -77,6 +77,9 @@ app.get("/dashboard",authMiddleware, orderController.dashboard);
 app.get("/", (req, res)=>{
   res.render("login.ejs", { errors: {}, message:{}});
 });
+app.get("/login", (req, res)=>{
+  res.render("login.ejs", { errors: {}, message:{}});
+});
 app.post("/login", userController.login);
 
 

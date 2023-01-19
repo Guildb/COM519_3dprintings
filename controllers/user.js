@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
             ]
             });
         if (!user) {
-            res.render('/', { errors: { email: { message: 'email not found' } } })
+            res.render('/login', { errors: { email: { message: 'email not found' } } })
             return;
         }
 
@@ -77,7 +77,7 @@ exports.login = async (req, res) => {
             return
         }
 
-        res.render('/', { errors: { password: { message: 'password does not match' } } })
+        res.render('/login', { errors: { password: { message: 'password does not match' } } })
 
 
     } catch (e) {
