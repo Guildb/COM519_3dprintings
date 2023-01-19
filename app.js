@@ -62,7 +62,7 @@ app.use(expressSession({
 
 global.user = false;
  app.use("*", async (req, res, next) =>{
-   if(req.session.userID && !global.user){
+   if(req.session.userid && !global.user){
      const user = await User.findById(req.session.userID);
      global.user = user;
    }
