@@ -149,11 +149,7 @@ app.get("/errors", (req, res)=>{
 });
 
 
-app.get("/logout",authMiddleware, async (req, res) => {
-    req.session.destroy();
-    global.user = false;
-    res.redirect('/');
-  })
+
 
 
 
