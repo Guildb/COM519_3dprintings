@@ -47,7 +47,7 @@ exports.update = async (req, res) => {
     }
     else{
         const user = await User.updateOne({ _id: id }, req.body);
-        res.redirect('userInfo');
+        res.render('userInfo');
     }
     } catch (e) {
         res.render("404", {
@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
             ]
             });
         if (!user) {
-            res.redirect('/', { errors: { email: { message: 'email not found' } } })
+            res.render('/', { errors: { email: { message: 'email not found' } } })
             return;
         }
 
@@ -73,11 +73,11 @@ exports.login = async (req, res) => {
         if (match) {
             req.session.userID = user._id;
             req.session.user = user;
-            res.redirect('/dashboard');
+            res.render('dashboard');
             return
         }
 
-        res.redirect('/', { errors: { password: { message: 'password does not match' } } })
+        res.render('/', { errors: { password: { message: 'password does not match' } } })
 
 
     } catch (e) {
@@ -148,7 +148,7 @@ exports.password = async (req, res) => {
                 { email: req.body.email },
                 { username: req.body.username }
             ], password: hashpass});
-        res.redirect('dashboard');
+        res.render('dashboard');
 
         if (!user) {
             res.render('password', { errors: { email: { message: 'email / username not found' } } })

@@ -49,7 +49,7 @@ exports.list = async (req, res) => {
 
       const project = new Project({ name: req.body.name, link: req.body.link ,img: req.body.picture, type_id: req.body.typelist  });
       await project.save();
-      res.redirect('dashboard');
+      res.render('dashboard');
 
     } catch (e) {
       if (e.errors) {
@@ -66,7 +66,7 @@ exports.list = async (req, res) => {
     try {
       const id = req.params.id;
       const projects = await Project.findByIdAndRemove(id);
-      res.redirect('/viewProject')
+      res.render('viewProject')
     } catch (e) {
       if (e.errors) {
         console.log(e.errors);

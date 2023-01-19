@@ -42,7 +42,7 @@ exports.create = async (req, res) => {
     const project_id = req.body.projectid;
     const orders = new Order({ buyer_name: req.body.name, status: 1, project_id: project_id, user_id: user_id });
     await orders.save();
-    res.redirect('/dashboard')
+    res.render('dashboard')
   } catch (e) {
     if (e.errors) {
       console.log(e.errors);
@@ -61,7 +61,7 @@ exports.deliver = async (req, res) => {
   try {
     const id = req.params.id;
     const orders = await Order.updateOne({ _id: id }, { $set: { status: 0 } })
-    res.redirect('/viewOrder')
+    res.render('viewOrder')
   } catch (e) {
     if (e.errors) {
       console.log(e.errors);
@@ -79,7 +79,7 @@ exports.remove = async (req, res) => {
   try {
     const id = req.params.id;
     const orders = await Order.findByIdAndRemove(id);
-    res.redirect('/viewOrder')
+    res.render('viewOrder')
   } catch (e) {
     if (e.errors) {
       console.log(e.errors);
