@@ -22,7 +22,6 @@ const typeController = require("./controllers/type");
 
 const app = express();
 app.set("view engine", "ejs");
-
 /**
  * notice above we are using dotenv. We can now pull the values from our environment
  */
@@ -52,8 +51,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-app.use(expressSession({ secret: 'for barr', cookie: {expires: new Date(253402300000000) }}))
+app.use(expressSession({ 
+  secret: 'for barr',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 *60 *24
+  }
+}));
 
 global.user = false;
  app.use("*", async (req, res, next) =>{

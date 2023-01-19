@@ -105,7 +105,6 @@ exports.dashboard = async (req, res) => {
     const orders = await Order.find({ user_id: id,status: 0 });
     const label_list = [];
     const data_list = [];
-    console.log(user);
     
     types.forEach(type => {
       let amount = 0;
