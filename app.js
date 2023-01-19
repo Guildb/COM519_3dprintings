@@ -33,18 +33,7 @@ const { PORT, MONGODB_URI } = process.env;
  * connect to database
  */
 
-mongoose.set('strictQuery', false);
-const connectDB = async()=>{
-  try{
-    const conn = await mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
-    console.log("MongoDB Connected");
-  }catch(error){
-    console.log(error);
-    process.exit(1);
-  }
-}
 
-/** 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 mongoose.connection.on("error", (err) => {
   console.error(err);
@@ -53,28 +42,27 @@ mongoose.connection.on("error", (err) => {
     chalk.red("✗")
   );
   process.exit();
-});*/
+});
 
 /***
  * We are applying our middlewear
  */
 
 app.use(express.static(path.join(__dirname, "public")));
-app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(expressSession({ secret: 'foo barr', cookie: { secure: true, expires: new Date(253402300000000) } }))
 
-app.use("*", async (req, res, next) => {
-  global.user = false;
-  if (req.session.userID && !global.user) {
-    const user = await User.findById(req.session.userID);
-    global.user = user;
-    console.log(user);
-  }
-  next();
-})
+app.use(expressSession({ secret: 'for barr', cookie: {expires: new Date(253402300000000) }}))
+
+global.user = false;
+ app.use("*", async (req, res, next) =>{
+   if(req.session.userID && !global.user){
+     const user = await User.findById(req.session.userID);
+     global.user = user;
+   }
+   next();
+ })
 
 const authMiddleware = async (req, res, next) => {
     const user = await User.findById(req.session.userID);
@@ -85,7 +73,7 @@ const authMiddleware = async (req, res, next) => {
   }
 
 
-app.get("/dashboard", orderController.dashboard);
+app.get("/dashboard",authMiddleware, orderController.dashboard);
 
 
 
@@ -110,35 +98,35 @@ app.post("/password", userController.password);
 
 
 
-app.get("/userInfo", userController.listUser);
-app.get("/updateUser", userController.edit);
-app.post("/updateUser", userController.update);
+app.get("/userInfo",authMiddleware, userController.listUser);
+app.get("/updateUser",authMiddleware, userController.edit);
+app.post("/updateUser",authMiddleware, userController.update);
 
 
 
-app.get("/addProject", typeController.list);
-app.post("/addProject", projectController.create);
-app.get("/viewProject", projectController.list);
-app.get("/viewProject/ByType/:id", projectController.viewById);
-app.get("/viewProject/remove/:id", projectController.remove);
+app.get("/addProject",authMiddleware, typeController.list);
+app.post("/addProject",authMiddleware, projectController.create);
+app.get("/viewProject",authMiddleware, projectController.list);
+app.get("/viewProject/ByType/:id",authMiddleware, projectController.viewById);
+app.get("/viewProject/remove/:id",authMiddleware, projectController.remove);
 
 
 
-app.get("/addOrder/:id", projectController.addOrder);
-app.post("/addOrder", orderController.create);
-app.get("/viewOrder", orderController.list);
-app.get("/viewOrder/closed", orderController.closed);
-app.get("/viewOrder/open", orderController.open);
-app.get("/viewOrder/deliver/:id", orderController.deliver);
-app.get("/viewOrder/remove/:id", orderController.remove);
+app.get("/addOrder/:id",authMiddleware, projectController.addOrder);
+app.post("/addOrder",authMiddleware, orderController.create);
+app.get("/viewOrder",authMiddleware, orderController.list);
+app.get("/viewOrder/closed",authMiddleware, orderController.closed);
+app.get("/viewOrder/open",authMiddleware, orderController.open);
+app.get("/viewOrder/deliver/:id",authMiddleware, orderController.deliver);
+app.get("/viewOrder/remove/:id",authMiddleware, orderController.remove);
 
 
 
-app.get("/addType", (req, res)=>{
-  res.render("addType.ejs", { errors: {}, message:{} });
+app.get("/addType",authMiddleware, (req, res)=>{
+  res.render("addType.ejs",authMiddleware, { errors: {}, message:{} });
 });
-app.post("/addType", typeController.create);
-app.get("/viewtype", typeController.view);
+app.post("/addType",authMiddleware, typeController.create);
+app.get("/viewtype",authMiddleware, typeController.view);
 
 
 
@@ -159,7 +147,7 @@ app.get("/errors", (req, res)=>{
 });
 
 
-app.get("/logout", async (req, res) => {
+app.get("/logout",authMiddleware, async (req, res) => {
     req.session.destroy();
     global.user = false;
     res.redirect('/');
@@ -167,11 +155,9 @@ app.get("/logout", async (req, res) => {
 
 
 
-  connectDB().then(() =>{
-    app.listen(PORT, () => {
-      console.log(
-        `Example app listening at ${PORT}`,
-        chalk.green("✓")
-      );
-  })
-});
+  app.listen(WEB_PORT, () => {
+    console.log(
+      `Example app listening at http://localhost:${WEB_PORT}`,
+      chalk.green("✓")
+    );
+  });
