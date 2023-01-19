@@ -148,7 +148,7 @@ exports.password = async (req, res) => {
                 { email: req.body.email },
                 { username: req.body.username }
             ], password: hashpass});
-        res.render('dashboard');
+        res.redirect("/login")
 
         if (!user) {
             res.render('password', { errors: { email: { message: 'email / username not found' } } })
