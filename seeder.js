@@ -21,6 +21,14 @@ async function main() {
       db.dropDatabase();
     }
 
+    const orderResults = await db.collection("orders").find({}).count();
+    /**
+     * If existing records then delete the current collections
+     */
+    if (orderResults) {
+      db.dropDatabase();
+    }
+
     const typeResults = await db.collection("types").find({}).count();
     /**
      * If existing records then delete the current collections

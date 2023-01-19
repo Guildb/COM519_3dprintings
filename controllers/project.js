@@ -66,7 +66,7 @@ exports.list = async (req, res) => {
     try {
       const id = req.params.id;
       const projects = await Project.findByIdAndRemove(id);
-      res.redirect('viewProject')
+      res.redirect('/viewProject')
     } catch (e) {
       if (e.errors) {
         console.log(e.errors);

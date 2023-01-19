@@ -47,7 +47,7 @@ exports.update = async (req, res) => {
     }
     else{
         const user = await User.updateOne({ _id: id }, req.body);
-        res.render('userInfo');
+        res.redirect('/userInfo');
     }
     } catch (e) {
         res.render("404", {
