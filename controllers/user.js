@@ -73,7 +73,7 @@ exports.login = async (req, res) => {
         if (match) {
             req.session.userID = user._id;
             req.session.user = user;
-            res.render('/dashboard');
+            res.redirect('/dashboard');
             return
         }
 
