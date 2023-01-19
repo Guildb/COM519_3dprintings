@@ -73,6 +73,8 @@ exports.login = async (req, res) => {
         if (match) {
             req.session.userID = user._id;
             req.session.user = user;
+            console.log(req.session.userID)
+            console.log(req.session.user)
             res.redirect('/dashboard');
             return
         }
