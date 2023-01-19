@@ -7,9 +7,9 @@ const express = require("express"),
       bodyParser = require("body-parser"),
       expressSession = require("express-session"),
       User = require("./models/User"),
-      order = require("./models/Order"),
-      type = require("./models/Type"),
-      project = require("./models/Project")
+      Order = require("./models/Order"),
+      Type = require("./models/Type"),
+      Project = require("./models/Project")
 
 /**
  * Controllers (route handlers).
@@ -32,6 +32,19 @@ const { PORT, MONGODB_URI } = process.env;
 /**
  * connect to database
  */
+
+mongoose.set('strictQuery', false);
+const connectDB = async()=>{
+  try{
+    const conn = await mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+    console.log("MongoDB Connected");
+  }catch(error){
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+/** 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 mongoose.connection.on("error", (err) => {
   console.error(err);
@@ -40,7 +53,7 @@ mongoose.connection.on("error", (err) => {
     chalk.red("✗")
   );
   process.exit();
-});
+});*/
 
 /***
  * We are applying our middlewear
@@ -155,9 +168,11 @@ app.get("/logout",authMiddleware, async (req, res) => {
 
 
 
-app.listen(PORT, () => {
-  console.log(
-    `Example app listening at http://localhost:${PORT}`,
-    chalk.green("✓")
-  );
+  connectDB().then(() =>{
+    app.listen(PORT, () => {
+      console.log(
+        `Example app listening at ${PORT}`,
+        chalk.green("✓")
+      );
+  })
 });
