@@ -16,7 +16,7 @@
 - install the dependencies - `npm install`
 - Rename .env.example to .env
 - You will want to run the seeder - `npm run seedProduction`
-- Now you can simpply use the Web app ![Link](https://dark-gold-cheetah-fez.cyclic.app)
+- Now you can simpply use the Web app [Link](https://dark-gold-cheetah-fez.cyclic.app)
   
 ## To be able to login I did create a default user
 
